@@ -11,25 +11,27 @@ def greedy(graph: Graph, numberOfSeedNodes: int) -> ([int], Graph): # Return the
     highest_utility_graph = Graph()
     previous_highest_utility_for_positive_node = 0
 
-    if numberOfSeedNodes + len(negative_seed_id_list) > len(graph.nodeDict):
+    if numberOfSeedNodes + len(negative_seed_id_list) > len(graph.nodeGraph):
         print("Number of Positive Seed nodes is too much.")
-        numberOfSeedNodes = len(graph.nodeDict) - len(negative_seed_id_list)
+        numberOfSeedNodes = len(graph.nodeGraph) - len(negative_seed_id_list)
         if numberOfSeedNodes < 0:
             raise ValueError("Number of Negative Node is too much. Fail to run any algorithm on it.")
 
-    for iterations in range(numberOfSeedNodes):
+    for iterations in range(numberOfSeedNodes): # Greedy add multiple times of positive seed node inside the graph.
         graph_copy = graph_for_iteration.copy_graph()
         current_highest_margin_gain = 0
         currentNodeIDChoosen = 0
         current_highest_utility_graph = graph.copy_graph()
 
-        for nodeID in graph_copy.nodeDict:
-            node = graph_copy.nodeDict[nodeID]
-            if node.active_state == Active_State.negative_active or node.active_state == Active_State.positive_active:
+        for nodeID in range(len(graph_copy.nodeGraph.nodes.items())):
+            # nodeID += 1
+            node = graph_copy.nodeGraph.node[nodeID]
+            if node['active_state'] == Active_State.negative_active or node['active_state'] == \
+                    Active_State.positive_active:
                 continue
 
             # Run the greedy algorithm, see the result.
-            node.active_state = Active_State.positive_active
+            node['active_state'] = Active_State.positive_active
             # print("Current Set up Node ID: " + str(nodeID))
             while graph_copy.try_activate_single_step(): # Iterate to the final step.
                 pass
@@ -39,9 +41,9 @@ def greedy(graph: Graph, numberOfSeedNodes: int) -> ([int], Graph): # Return the
                 currentNodeIDChoosen = nodeID
                 current_highest_utility_graph = graph_copy.copy_graph()
             graph_copy = graph_for_iteration.copy_graph()
-        if currentNodeIDChoosen == 0:
-            raise ValueError("Error getting node ID = 0")
-        graph_for_iteration.nodeDict[currentNodeIDChoosen].active_state = Active_State.positive_active
+        if currentNodeIDChoosen < 0:
+            raise ValueError("Error getting node ID < 0")
+        graph_for_iteration.nodeGraph.node[currentNodeIDChoosen]['active_state'] = Active_State.positive_active
         highest_utility_graph = current_highest_utility_graph
         nodeIDChoosen.append(currentNodeIDChoosen)
         previous_highest_utility_for_positive_node = \
