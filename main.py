@@ -34,18 +34,19 @@ positiveSeedFromUniform, graphFromUniform = greedy(graph_for_uniform, number_of_
 
 
 print("Realworld: Positive activate number and negative activate number are: " + str(
-    graph_for_realworld.get_Positive_and_Negative_Nodes_number()))
+    graphFromRealWorld.get_Positive_and_Negative_Nodes_number()))
 print("Pick positive seed node ID are: " + str(positiveSeedFromRealWorld))
 
 print("Uniform: Positive activate number and negative activate number are: " + str(
-    graph_for_uniform.get_Positive_and_Negative_Nodes_number()))
+    graphFromUniform.get_Positive_and_Negative_Nodes_number()))
 print("Pick positive seed node ID are: " + str(positiveSeedFromUniform))
 
 finalRealworldScore, _ = evaluation(positiveSeedFromRealWorld, graph_for_evaluate_realworld)
 finalUniformScore, _ = evaluation(positiveSeedFromUniform, graph_for_evaluate_uniform)
 
-print(finalRealworldScore)
-print(finalUniformScore)
+print("\n\n\n")
+print("The final positive nodes for real world distribution for evaluation is: " + str(finalRealworldScore))
+print("The final positive nodes for uniform distribution for evaluation is: " + str(finalUniformScore))
 
 
 # graph.plot_graph()
