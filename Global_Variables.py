@@ -8,3 +8,8 @@ number_of_total_nodes = 100
 possibility_of_edges_creation = 2 / number_of_total_nodes
 
 file_storage_directory = "/Users/sly/Desktop/Graph/"
+
+
+real_world_distribution = [0.72222222, 0.07638888888, 0.2013888888]
+
+evaluation_distribution = [0.9538461538461539, 0.042735042735042736, 0.003418803418803419]
